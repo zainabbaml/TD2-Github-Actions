@@ -22,6 +22,7 @@ jobs:
 #finally build your app with the latest command
       - name: Build and test with Maven
         working-directory: ./simple-api
+
         run: mvn -B verify sonar:sonar -Dsonar.projectKey=zainabbaml -Dsonar.organization=zainabbaml -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
   build-and-push-docker-image:
@@ -51,6 +52,6 @@ jobs:
       - name: Build image and push httpd
         uses: docker/build-push-action@v6
         with:
-          context: ./httpd
+          context: ./http-server
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-httpd:latest
           push: ${{ github.ref == 'refs/heads/main' }}
