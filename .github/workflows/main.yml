@@ -68,4 +68,7 @@ jobs:
           tags:  ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-httpd:latest
           # build on feature branches, push only on main branch
           push: ${{ github.ref == 'refs/heads/main' }}
+      
+      - name: Run SonarCloud analysis
+        run: mvn -B verify sonar:sonar -Dsonar.projectKey=TON_PROJECT_KEY -Dsonar.organization=TON_ORG_KEY -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }} --file ./simple-api/pom.xml
 
